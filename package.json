@@ -1,0 +1,33 @@
+{
+  "name": "mingle-toc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bin/www",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test/**/*.js --compilers js:babel/register",
+    "start": "node --harmony --use-strict ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/uldissturms/mingle-toc.git"
+  },
+  "keywords": [
+    "mingle",
+    "toc",
+    "kanban"
+  ],
+  "author": "Uldis Sturms",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uldissturms/mingle-toc/issues"
+  },
+  "homepage": "https://github.com/uldissturms/mingle-toc#readme",
+  "devDependencies": {
+    "babel": "^5.8.21",
+    "mocha": "^2.2.5",
+    "supertest": "^1.0.1"
+  },
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
