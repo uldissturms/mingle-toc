@@ -16,10 +16,19 @@ describe('application', () => {
       .expect(200)
       .expect((res) => {
         var latest = res.body.stories[0];
-        if (latest.name !== 'latest done') {
-	  throw new Error('Expected last name to be lastest done but was ' + latest.name);
+	if (latest.number !== '4') {
+	  throw new Error('Expected number to be 4, but was ' + latest.number);
 	}
-       })
+        if (latest.name !== 'latest done') {
+	  throw new Error('Expected name to be lastest done but was ' + latest.name);
+	}
+	if (latest.leadTime !== 2) {
+	  throw new Error('Expected lead time to be 2 but was ' + latest.leadTime);
+	}
+	if (latest.cycleTime !== 1) {
+	  throw new Error('Expected cycle time to be 1 but was ' + latest.cycleTime);
+	}
+      })
       .end(done);
   });
 });
