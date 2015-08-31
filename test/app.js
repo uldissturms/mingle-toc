@@ -10,6 +10,13 @@ describe('application', () => {
       .end(done);
   });
 
+  it('serves index page', (done) => {
+    request(app)
+      .get('/')
+      .expect(200)
+      .end(done);
+  });
+
   it('serves cycle time api', (done) => {
     request(app)
       .get('/api/cycle-times')
