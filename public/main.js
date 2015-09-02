@@ -1,4 +1,4 @@
-var Chart = require('../bower_components/Chart.js/Chart.js');
+var Chart = require('Chart.js');
 var request = require('superagent');
 var _ = require('lodash');
 
