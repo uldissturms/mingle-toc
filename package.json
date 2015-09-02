@@ -4,6 +4,8 @@
   "description": "",
   "main": "bin/www",
   "scripts": {
+    "postinstall": "./node_modules/.bin/bower install",
+    "build": "node --harmony ./node_modules/gulp/bin/gulp.js build",
     "test": "./node_modules/.bin/mocha test/**/*.js --compilers js:babel/register",
     "start": "node --harmony --use-strict ./bin/www",
     "dev": "./node_modules/.bin/nodemon --exec npm test"
@@ -25,6 +27,9 @@
   "homepage": "https://github.com/uldissturms/mingle-toc#readme",
   "devDependencies": {
     "babel": "^5.8.21",
+    "bower": "^1.5.2",
+    "browserify": "^11.0.1",
+    "gulp": "^3.9.0",
     "mocha": "^2.2.5",
     "nodemon": "^1.4.1",
     "supertest": "^1.0.1"
