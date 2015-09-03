@@ -1,6 +1,23 @@
-var Chart = require('Chart.js');
 var request = require('superagent');
 var _ = require('lodash');
+var d3 = require('d3');
+var nv = require('nvd3');
+
+var drawCycleTimes = function(data){
+  nv.addGraph(function() {
+    var chart = nv.models.discreteBarChart()
+      .x(function(d) { return d.label; })
+      .y(function(d) { return d.value; })
+      .staggerLabels(true)
+      .showValues(true)
+      .duration(250);
+    d3.select('#cycle-times svg')
+      .datum(data)
+      .call(chart);
+    nv.utils.windowResize(chart.update);
+    return chart;
+  });
+};
 
 request
   .get('/api/cycle-times')
@@ -8,26 +25,15 @@ request
     var stories = res.body.stories;
     var sortedStories = stories.reverse();
     var labels = _.map(sortedStories, function(s){ return s.number; });
-    var leadTimes = _.map(sortedStories, function(s){ return s.leadTime; });
-    var cycleTimes = _.map(sortedStories, function(s){ return s.cycleTime; });
-    var datasets = [{
-      label: "lead times",
-      fillColor: "rgba(220,220,220,0.5)",
-      strokeColor: "rgba(220,220,220,0.8)",
-      highlightFill: "rgba(220,220,220,0.75)",
-      highlightStroke: "rgba(220,220,220,1)",
-      data: leadTimes
+    var leadTimes = _.map(sortedStories, function(s){ return { label: s.number, value: s.leadTime }; });
+    var cycleTimes = _.map(sortedStories, function(s){ return { label: s.number, value: s.cycleTime}; });
+    var data = [{
+      key: "lead times",
+      values: leadTimes
     },
     {
-      label: "cycle times",
-      fillColor: "rgba(151,187,205,0.5)",
-      strokeColor: "rgba(151,187,205,0.8)",
-      highlightFill: "rgba(151,187,205,0.75)",
-      highlightStroke: "rgba(151,187,205,1)",
-      data: cycleTimes
+      key: "cycle times",
+      values: cycleTimes
     }];
-    var data = { labels: labels, datasets: datasets };
-
-    var ctx = document.getElementById("cycle-times").getContext("2d");
-    var cycleTimeChart = new Chart(ctx).Bar(data);
-  });
+	drawCycleTimes(data);
+});

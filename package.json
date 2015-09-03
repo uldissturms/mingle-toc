@@ -27,10 +27,11 @@
   "devDependencies": {
     "babel": "^5.8.21",
     "browserify": "^11.0.1",
-    "chart.js": "^1.0.2",
+    "d3": "^3.5.6",
     "gulp": "^3.9.0",
     "mocha": "^2.2.5",
     "nodemon": "^1.4.1",
+    "nvd3": "^1.8.1",
     "supertest": "^1.0.1"
   },
   "dependencies": {
