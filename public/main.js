@@ -6,9 +6,10 @@ request
   .get('/api/cycle-times')
   .end(function(err, res){
     var stories = res.body.stories;
-    var labels = _.map(stories, function(s){ return s.number; });
-    var leadTimes = _.map(stories, function(s){ return s.leadTime; });
-    var cycleTimes = _.map(stories, function(s){ return s.cycleTime; });
+    var sortedStories = stories.reverse();
+    var labels = _.map(sortedStories, function(s){ return s.number; });
+    var leadTimes = _.map(sortedStories, function(s){ return s.leadTime; });
+    var cycleTimes = _.map(sortedStories, function(s){ return s.cycleTime; });
     var datasets = [{
       label: "lead times",
       fillColor: "rgba(220,220,220,0.5)",
