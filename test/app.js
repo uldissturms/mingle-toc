@@ -23,9 +23,6 @@ describe('application', () => {
       .expect(200)
       .expect((res) => {
         var latest = res.body.stories[0];
-	if (latest.number !== '4') {
-	  throw new Error('Expected number to be 4, but was ' + latest.number);
-	}
         if (latest.name !== 'latest done') {
 	  throw new Error('Expected name to be lastest done but was ' + latest.name);
 	}
