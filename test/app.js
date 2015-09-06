@@ -22,7 +22,11 @@ describe('application', () => {
       .get('/api/cycle-times')
       .expect(200)
       .expect((res) => {
-        var latest = res.body.stories[0];
+        var stories = res.body.stories;
+	if (stories.length != 20) {
+	 throw new Error('Expected to return 20 latest stories but returned ' + stories.length);
+	}
+	var latest = stories[0];
         if (latest.name !== 'latest done') {
 	  throw new Error('Expected name to be lastest done but was ' + latest.name);
 	}

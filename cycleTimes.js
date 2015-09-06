@@ -30,7 +30,8 @@ let retrieve = function(cb){
 request
   .get(compileMingleQuery(cardType))
   .end(function(err, res){
-    let cycleTimes = calculateCycleTimes(res.body); 
+    let stories = _.take(res.body, 20);
+    let cycleTimes = calculateCycleTimes(stories); 
     cb({ stories: cycleTimes }, err);
   });
 };
