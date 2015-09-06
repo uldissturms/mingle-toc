@@ -8,7 +8,7 @@ let doneState = process.env.DONE_STATE || 'Done';
 let cardType = process.env.CARD_TYPE || 'Work';
 
 let compileMingleQuery = function(type){  
-  return mingleBaseUrl + "cards/execute_mql.json?mql=SELECT Number,Name,Created_On,'" + doingOn + "','" + doneOn + "' WHERE Type=" + type + " AND Status=" + doneState + " ORDER BY '" + doneOn + "' DESC";
+  return mingleBaseUrl + "cards/execute_mql.json?mql=SELECT Number,Name,Created_On,'" + doingOn + "','" + doneOn + "' WHERE Type=" + type + " AND Status=" + doneState + " AND '" + doneOn + "' IS NOT NULL ORDER BY '" + doneOn + "' DESC";
 }
 
 let diffInDays = function(from, to){
