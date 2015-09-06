@@ -5,9 +5,10 @@ let mingleBaseUrl = process.env.MINGLE_BASE_URL || 'https://integration-test:tes
 let doingOn = process.env.DOING_ON_STATE || 'Doing';
 let doneOn = process.env.DONE_ON_STATE || 'Done';
 let doneState = process.env.DONE_STATE || 'Done';
+let cardType = process.env.CARD_TYPE || 'Work';
 
-let compileMingleQuery = function(){  
-  return mingleBaseUrl + "cards/execute_mql.json?mql=SELECT Number,Name,Created_On,'" + doingOn + "','" + doneOn + "' WHERE Status=" + doneState + " ORDER BY '" + doneOn + "' DESC";
+let compileMingleQuery = function(type){  
+  return mingleBaseUrl + "cards/execute_mql.json?mql=SELECT Number,Name,Created_On,'" + doingOn + "','" + doneOn + "' WHERE Type=" + type + " AND Status=" + doneState + " ORDER BY '" + doneOn + "' DESC";
 }
 
 let diffInDays = function(from, to){
@@ -27,7 +28,7 @@ let calculateCycleTimes = function(stories){
 
 let retrieve = function(cb){
 request
-  .get(compileMingleQuery())
+  .get(compileMingleQuery(cardType))
   .end(function(err, res){
     let cycleTimes = calculateCycleTimes(res.body); 
     cb({ stories: cycleTimes }, err);
