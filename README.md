@@ -7,4 +7,5 @@ MINGLE_BASE_URL='http://<username>:<password>@<host>[:<port>]/api/v2/projects/<p
 DOING_ON_STATE='Doing'
 DONE_ON_STATE='Done'
 DONE_STATE='Done'
+CARD_TYPE='Work'
 ```
