@@ -1,20 +1,27 @@
-var request = require('superagent');
-var _ = require('lodash');
-var d3 = require('d3');
-var nv = require('nvd3');
+'use strict';
 
-var drawCycleTimes = function(data){
-  nv.addGraph(function() {
-    var chart = nv.models.discreteBarChart()
+let request = require('superagent');
+let _ = require('lodash');
+let d3 = require('d3');
+let nv = require('nvd3');
+
+let drawCycleTimes = (data) => {
+  nv.addGraph(() => {
+    let chart = nv.models.discreteBarChart()
       .x(function(d) { return d.label; })
       .y(function(d) { return d.value; })
       .staggerLabels(true)
       .showValues(true)
       .duration(250);
+    chart
+      .tooltip.contentGenerator(function(d) {
+        return d.data.label	 + ': ' + d.data.name;
+      });
     d3.select('#cycle-times svg')
       .datum(data)
       .call(chart);
     nv.utils.windowResize(chart.update);
+    
     return chart;
   });
 };
@@ -22,12 +29,12 @@ var drawCycleTimes = function(data){
 request
   .get('/api/cycle-times')
   .end(function(err, res){
-    var stories = res.body.stories;
-    var sortedStories = stories.reverse();
-    var labels = _.map(sortedStories, function(s){ return s.number; });
-    var leadTimes = _.map(sortedStories, function(s){ return { label: s.number, value: s.leadTime }; });
-    var cycleTimes = _.map(sortedStories, function(s){ return { label: s.number, value: s.cycleTime}; });
-    var data = [{
+    let stories = res.body.stories;
+    let sortedStories = stories.reverse();
+    let labels = _.map(sortedStories, function(s){ return s.number; });
+    let leadTimes = _.map(sortedStories, function(s){ return { label: s.number, value: s.leadTime, name: s.name}; });
+    let cycleTimes = _.map(sortedStories, function(s){ return { label: s.number, value: s.cycleTime, name: s.name }; });
+    let data = [{
       key: "lead times",
       values: leadTimes
     },
@@ -35,5 +42,5 @@ request
       key: "cycle times",
       values: cycleTimes
     }];
-	drawCycleTimes(data);
+    drawCycleTimes(data);
 });
