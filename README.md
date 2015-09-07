@@ -8,4 +8,5 @@ DOING_ON_STATE='Doing'
 DONE_ON_STATE='Done'
 DONE_STATE='Done'
 CARD_TYPE='Work'
+CARD_SIZE='Size'
 ```
