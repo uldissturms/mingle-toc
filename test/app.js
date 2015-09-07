@@ -23,19 +23,22 @@ describe('application', () => {
       .expect(200)
       .expect((res) => {
         var stories = res.body.stories;
-	if (stories.length != 20) {
-	 throw new Error('Expected to return 20 latest stories but returned ' + stories.length);
-	}
-	var latest = stories[0];
+        if (stories.length != 20) {
+          throw new Error('Expected to return 20 latest stories but returned ' + stories.length);
+        }
+        var latest = stories[0];
         if (latest.name !== 'latest done') {
-	  throw new Error('Expected name to be lastest done but was ' + latest.name);
-	}
-	if (latest.leadTime !== 2) {
-	  throw new Error('Expected lead time to be 2 but was ' + latest.leadTime);
-	}
-	if (latest.cycleTime !== 1) {
-	  throw new Error('Expected cycle time to be 1 but was ' + latest.cycleTime);
-	}
+          throw new Error('Expected name to be lastest done but was ' + latest.name);
+        }
+        if (latest.leadTime !== 2) {
+         throw new Error('Expected lead time to be 2 but was ' + latest.leadTime);
+        }
+        if (latest.cycleTime !== 1) {
+          throw new Error('Expected cycle time to be 1 but was ' + latest.cycleTime);
+        }
+        if (latest.size != 'X-Small') {
+          throw new Error('Expected size to be X-Small but was ' + latest.size);
+        }
       })
       .end(done);
   });

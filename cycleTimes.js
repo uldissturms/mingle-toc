@@ -6,9 +6,11 @@ let doingOn = process.env.DOING_ON_STATE || 'Doing';
 let doneOn = process.env.DONE_ON_STATE || 'Done';
 let doneState = process.env.DONE_STATE || 'Done';
 let cardType = process.env.CARD_TYPE || 'Work';
+let cardSize = process.env.CARD_SIZE || 'Size';
+
 
 let compileMingleQuery = function(type){  
-  return mingleBaseUrl + "cards/execute_mql.json?mql=SELECT Number,Name,Created_On,'" + doingOn + "','" + doneOn + "' WHERE Type=" + type + " AND Status=" + doneState + " AND '" + doneOn + "' IS NOT NULL ORDER BY '" + doneOn + "' DESC";
+  return mingleBaseUrl + "cards/execute_mql.json?mql=SELECT Number,Name,Created_On,'" + doingOn + "','" + doneOn + "'," + cardSize + " WHERE Type=" + type + " AND Status=" + doneState + " AND '" + doneOn + "' IS NOT NULL ORDER BY '" + doneOn + "' DESC";
 }
 
 let diffInDays = function(from, to){
@@ -20,6 +22,7 @@ let calculateCycleTimes = function(stories){
   return _.map(stories, function(s){ return { 
     name: s.Name,
     number: s.Number,
+    size: s[cardSize],
     leadTime: diffInDays(Date.parse(s['Created on']), Date.parse(s[doneOn])),
     cycleTime: diffInDays(Date.parse(s[doingOn]), Date.parse(s[doneOn]))
     };
