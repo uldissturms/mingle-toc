@@ -3,6 +3,7 @@
 let gulp = require('gulp');
 let fs = require('fs');
 let browserify = require('browserify');
+let babelify = require('babelify');
 
 const paths = {
   scripts: ['public/main.js']
@@ -11,6 +12,7 @@ const paths = {
 gulp.task('browserify', () => {
   return browserify({ debug: true })
     .require('./public/main.js', { entry: true })
+    .transform(babelify)
     .bundle()
     .pipe(fs.createWriteStream('./public/bundle.js'));
 });
